@@ -6,29 +6,24 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Getter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class Member {
+@AllArgsConstructor
+public class Delivery {
 
     @Id @GeneratedValue
-    @Column(name = "member_id")
+    @Column(name = "delivery_id")
     private Long id;
 
-    private String name;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "delivery")
+    private Order order;
 
     @Embedded
     private Address address;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
-
-
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status;
 
 }

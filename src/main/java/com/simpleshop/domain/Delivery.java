@@ -26,4 +26,10 @@ public class Delivery {
     @Enumerated(EnumType.STRING)
     private DeliveryStatus status;
 
+    public void createOrder(Order order) {
+        this.order = order;
+    }
+
+
+
 }

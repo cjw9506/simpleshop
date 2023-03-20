@@ -27,5 +27,29 @@ public class OrderItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    private int orderPrice;
+
+    private int count;
+
+    //비즈니스 로직
+    public void createOrder(Order order) {
+        this.order = order;
+    }
+
+    public void cancel() {
+        getItem().addStock(count);
+    }
+
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
+
+    //생성메서드
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = OrderItem.builder().item(item).orderPrice(orderPrice).count(count).build();
+        item.removeStock(count);
+        return orderItem;
+    }
+
 
 }

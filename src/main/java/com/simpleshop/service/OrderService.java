@@ -18,6 +18,8 @@ public class OrderService {
     private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
 
+
+
     @Transactional //주문하기
     public Long order(Long memberId, Long itemId, int count) {
 

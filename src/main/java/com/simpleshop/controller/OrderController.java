@@ -3,6 +3,7 @@ package com.simpleshop.controller;
 
 import com.simpleshop.domain.Member;
 import com.simpleshop.domain.Order;
+import com.simpleshop.domain.OrderSearch;
 import com.simpleshop.domain.item.Item;
 import com.simpleshop.service.ItemService;
 import com.simpleshop.service.MemberService;
@@ -40,6 +41,17 @@ public class OrderController {
                         @RequestParam("count") int count) {
         orderService.order(memberId, itemId, count);
         return "redirect:/orders";
+    }
+
+    @GetMapping("/orders")
+    public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch
+            , Model model) {
+
+        List<Order> orders = orderService.findAllDsl(orderSearch);
+        model.addAttribute("orders", orders);
+
+        return "order/orderList";
+
     }
 
 
